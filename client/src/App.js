@@ -22,8 +22,8 @@ class App extends Component {
           {this.state.invasions.map(district => {
             return (
               <li key={district[0]}>
-                Invasion in {district[0]}! The {district[1].type}s have taken
-                over
+                Invasion in {district[0]}!<br />
+                {district[1].type}s have taken over
               </li>
             );
           })}
