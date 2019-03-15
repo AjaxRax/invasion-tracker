@@ -1,25 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import axios from "axios";
+import "./App.css";
 
 class App extends Component {
+  state = {
+    invasions: []
+  };
+
+  componentDidMount() {
+    axios.get("https://www.toontownrewritten.com/api/invasions").then(res => {
+      this.setState({
+        invasions: Object.entries(res.data.invasions)
+      });
+    });
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <ul>
+          {this.state.invasions.map(district => {
+            return (
+              <li key={district[0]}>
+                Invasion in {district[0]}! The {district[1].type}s have taken
+                over
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
